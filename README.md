@@ -3,7 +3,7 @@
 ## A Practice platform for developers to improve their coding skills in any programming language or framework with a touch of AI.
 
 ## TODO
-- [ ] Create a basic structure for the landing page.
+- [x] Create a basic structure for the landing page.
 - [ ] Setup the database and Work on the schema
 - [ ] Setup Better-auth for authentication
 - [ ] Design the Login/signup pages and set it up
@@ -16,4 +16,3 @@
 - [ ] Add Judge0 API for code execution
 - [ ] Implement AI for generating quiz questions
 - [ ] Setup The Payment Gateway(Paypal)
-
