@@ -1,6 +1,7 @@
 
 "use server"
 import { db } from "~/server/db";
+import bcrypt from "bcryptjs";
 
 interface Signup {
   email: string;
@@ -14,10 +15,13 @@ export async function signUp({ email, password, name }: Signup) {
       throw new Error("Please fill all fields");
     }
 
+    let salt = await bcrypt.genSalt(10);
+    let hashedPassword = await bcrypt.hashSync(password,salt);
+
     const user = await db.user.create({
       data: {
         email,
-        password,
+        password:hashedPassword,
         name,
         provider: "EMAIL",
       },

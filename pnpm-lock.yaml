@@ -98,6 +98,12 @@ dependencies:
   '@t3-oss/env-nextjs':
     specifier: ^0.10.1
     version: 0.10.1(typescript@5.6.3)(zod@3.23.8)
+  '@types/bcryptjs':
+    specifier: ^2.4.6
+    version: 2.4.6
+  bcryptjs:
+    specifier: ^2.4.3
+    version: 2.4.3
   better-auth:
     specifier: 0.7.3-beta.4
     version: 0.7.3-beta.4(react@18.3.1)(solid-js@1.9.3)(vue@3.5.12)
@@ -2704,6 +2710,10 @@ packages:
     dev: false
     optional: true
 
+  /@types/bcryptjs@2.4.6:
+    resolution: {integrity: sha512-9xlo6R2qDs5uixm0bcIqCeMCE6HiQsIyel9KQySStiyqNl2tnj2mP3DX1Nf56MD6KMenNNlBBsy3LJ7gUEQPXQ==}
+    dev: false
+
   /@types/d3-array@3.2.1:
     resolution: {integrity: sha512-Y2Jn2idRrLzUfAKV2LyRImR+y4oa2AntrgID95SHJxuMUrkNXmanDSed71sRNZysveJVt1hLLemQZIady0FpEg==}
     dev: false
@@ -3180,6 +3190,10 @@ packages:
 
   /balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
+
+  /bcryptjs@2.4.3:
+    resolution: {integrity: sha512-V/Hy/X9Vt7f3BbPJEi8BdVFMByHi+jNXrYkW3huaybV/kQ0KJg0Y6PkEMbn+zeT+i+SiKZ/HMqJGIIt4LZDqNQ==}
+    dev: false
 
   /better-auth@0.7.3-beta.4(react@18.3.1)(solid-js@1.9.3)(vue@3.5.12):
     resolution: {integrity: sha512-fx/FeuAFQgCEjvYHIRt16FrIBkGNBo22ucylOvgcr78g6Gh+sf4PZQ+BI4RDEgWm74fOGnBp28YIb6gNclULrw==}
