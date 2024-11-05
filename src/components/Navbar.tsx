@@ -4,7 +4,7 @@ import * as React from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Code, Menu, X } from 'lucide-react'
-import {Poppins,Lexend_Deca} from '@next/font/google'
+import {Poppins,Lexend_Deca} from "next/font/google"
 
 const lex = Lexend_Deca({
     weight: ["100","400","700"],

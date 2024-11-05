@@ -8,9 +8,6 @@ dependencies:
   '@hookform/resolvers':
     specifier: ^3.9.1
     version: 3.9.1(react-hook-form@7.53.1)
-  '@next/font':
-    specifier: ^14.2.15
-    version: 14.2.15(next@15.0.2)
   '@prisma/client':
     specifier: ^5.14.0
     version: 5.21.1(prisma@5.21.1)
@@ -556,14 +553,6 @@ packages:
     dependencies:
       fast-glob: 3.3.1
     dev: true
-
-  /@next/font@14.2.15(next@15.0.2):
-    resolution: {integrity: sha512-QopYhBmCDDrNDynbi+ZD1hDZXmQXVFo7TmAFp4DQgO/kogz1OLbQ92hPigJbj572eZ3GaaVxNIyYVn3/eAsehg==}
-    peerDependencies:
-      next: '*'
-    dependencies:
-      next: 15.0.2(react-dom@18.3.1)(react@18.3.1)
-    dev: false
 
   /@next/swc-darwin-arm64@15.0.2:
     resolution: {integrity: sha512-GK+8w88z+AFlmt+ondytZo2xpwlfAR8U6CRwXancHImh6EdGfHMIrTSCcx5sOSBei00GyLVL0ioo1JLKTfprgg==}

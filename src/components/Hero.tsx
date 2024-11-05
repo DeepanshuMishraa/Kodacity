@@ -1,6 +1,6 @@
 import { cn } from "~/lib/utils";
 import AnimatedGridPattern from "./ui/animated-grid-pattern"
-import { Montserrat, Poppins, Rubik } from "@next/font/google";
+import { Montserrat, Poppins, Rubik } from "next/font/google";
 import { RainbowButton } from "./ui/rainbow-button";
 
 const Poppin = Poppins({
