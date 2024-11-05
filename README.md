@@ -4,9 +4,9 @@
 
 ## TODO
 - [x] Create a basic structure for the landing page.
-- [ ] Setup the database and Work on the schema
-- [ ] Setup Better-auth for authentication
-- [ ] Design the Login/signup pages and set it up
+- [x] Setup the database and Work on the schema
+- [x] Setup Better-auth for authentication
+- [x] Design the Login/signup pages and set it up
 - [ ] Create a dashboard for the user
 - [ ] Implement the design for the Problems page
 - [ ] Implement the design for the Contest page
