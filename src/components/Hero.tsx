@@ -6,6 +6,7 @@ import { RainbowButton } from "./ui/rainbow-button";
 const Poppin = Poppins({
     weight: ["100", "400", "700"],
     style: "normal",
+    subsets: ["latin"],
     display: "swap",
 })
 

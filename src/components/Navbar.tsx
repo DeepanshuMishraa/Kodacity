@@ -10,6 +10,7 @@ const lex = Lexend_Deca({
     weight: ["100","400","700"],
     style: 'normal',
     display: 'swap',
+    subsets: ['latin']
 })
 
 export default function LandingNavbar() {
