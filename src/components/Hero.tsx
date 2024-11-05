@@ -13,12 +13,12 @@ const Poppin = Poppins({
 export function Hero() {
   return (
     <div
-      className={`bg-background motion-preset-slide-right relative flex h-screen w-full flex-col items-center justify-center space-y-9 overflow-hidden rounded-lg border p-20 motion-duration-700 md:shadow-xl ${Poppin.className}`}
+      className={`motion-preset-slide-right relative flex h-screen w-full flex-col items-center justify-center space-y-9 overflow-hidden rounded-lg border bg-background p-20 motion-duration-700 md:shadow-xl ${Poppin.className}`}
     >
-      <p className="z-10 whitespace-pre-wrap text-center text-6xl font-medium tracking-tighter text-black dark:text-white">
+      <p className="z-10 whitespace-pre-wrap text-center text-6xl font-medium tracking-tighter text-gray-900 dark:text-white max-lg:text-5xl">
         Code Beyond Limits
       </p>
-      <p className="tracking-tighter z-10 text-center text-2xl font-normal text-gray-700 dark:text-white">
+      <p className="z-10 text-center text-2xl max-lg:text-xl font-normal tracking-tighter text-gray-700 dark:text-white">
         Advanced learning ecosystem that
         <br /> adapts to your journey. Free up to 500 practice runs.
       </p>
@@ -32,7 +32,7 @@ export function Hero() {
           "inset-x-0 inset-y-[-30%] h-[200%] skew-y-12",
         )}
       />
-      <RainbowButton>Apply for Waitlist</RainbowButton>
+      <RainbowButton className="mt-5">Apply for Waitlist</RainbowButton>
     </div>
   );
 }
