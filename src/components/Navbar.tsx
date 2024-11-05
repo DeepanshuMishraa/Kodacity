@@ -5,6 +5,9 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Code, Menu, X } from "lucide-react";
 import { Poppins, Lexend_Deca } from "next/font/google";
+import { signOut, useSession } from "~/lib/auth-client";
+import { Button } from "./ui/button";
+import { redirect } from "next/navigation";
 
 const lex = Lexend_Deca({
   weight: ["100", "400", "700"],
@@ -22,6 +25,8 @@ export default function LandingNavbar() {
     closed: { opacity: 0, y: -20 },
     open: { opacity: 1, y: 0 },
   };
+
+  const { data: session } = useSession();
 
   return (
     <nav className="fixed z-50 w-full border-b border-gray-200 bg-white bg-opacity-90 backdrop-blur-sm">
@@ -61,24 +66,36 @@ export default function LandingNavbar() {
                 </motion.span>
               </Link>
             ))} */}
-            <Link href="/login">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="rounded-md border border-gray-300 px-4 py-2 text-gray-600 transition-colors duration-200 hover:text-gray-900"
-              >
-                Log in
-              </motion.button>
-            </Link>
-            <Link href="/register">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="rounded-md bg-black px-4 py-2 text-white transition-colors duration-200 hover:bg-gray-800"
-              >
-                Sign up
-              </motion.button>
-            </Link>
+            {session ? (
+              <Button onClick={()=>signOut({
+                fetchOptions:{
+                    onSuccess:()=>{
+                        redirect("/login");
+                    }
+                }
+              })}>Logout</Button>
+            ) : (
+              <>
+                <Link href="/login">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="rounded-md border border-gray-300 px-4 py-2 text-gray-600 transition-colors duration-200 hover:text-gray-900"
+                  >
+                    Log in
+                  </motion.button>
+                </Link>
+                <Link href="/register">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="rounded-md bg-black px-4 py-2 text-white transition-colors duration-200 hover:bg-gray-800"
+                  >
+                    Sign up
+                  </motion.button>
+                </Link>
+              </>
+            )}
           </div>
 
           <motion.button

@@ -9,6 +9,11 @@ interface Signup {
   name: string;
 }
 
+interface SignIn {
+  email: string;
+  password: string;
+}
+
 export async function signUp({ email, password, name }: Signup) {
   try {
     if (!email || !password || !name) {
@@ -31,4 +36,28 @@ export async function signUp({ email, password, name }: Signup) {
   } catch (err: any) {
     throw new Error(err);
   }
+}
+
+
+export async function SignInValidator({email,password}:SignIn){
+    try{
+        if(!email || !password){
+            throw new Error("Please fill all fields");
+        }
+        const user = await db.user.findUnique({
+            where:{
+                email:email
+            }
+        })
+        if(!user){
+            throw new Error("User not found")
+        }
+        const isMatch = await bcrypt.compare(password,user?.password!);
+        if(!isMatch){
+            throw new Error("Invalid Credentials")
+        }
+        return user
+    }catch(err:any){
+        throw new Error(err)
+    }
 }

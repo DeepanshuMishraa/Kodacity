@@ -8,7 +8,7 @@ import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
-import { signUp } from "~/lib/auth.validators";
+import { signUp } from "~/lib/auth-client";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -17,17 +17,14 @@ const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsLoading(true);
-    try {
-      await signUp({ email, password, name });
-      router.push("/login");
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setIsLoading(false);
-    }
+  const handleSubmit = async () => {
+    await signUp.email({
+      email,
+      password,
+      name,
+    });
+
+    router.push("/login");
   };
 
   return (
@@ -36,7 +33,9 @@ const Register = () => {
       <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100 px-4 py-12 sm:px-6 lg:px-8">
         <Card className="w-full max-w-md">
           <CardHeader>
-            <CardTitle className="text-center text-2xl font-bold">Create an account</CardTitle>
+            <CardTitle className="text-center text-2xl font-bold">
+              Create an account
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">

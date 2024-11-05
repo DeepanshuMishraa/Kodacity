@@ -1,24 +1,50 @@
-'use client'
-import { useState } from 'react'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card'
-import { Button } from './ui/button'
+"use client";
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import { Button } from "./ui/button";
 import { FaGithub, FaGoogle } from "react-icons/fa";
-import { Label } from './ui/label';
-import { Input } from './ui/input';
-import { Checkbox } from './ui/checkbox';
-import { LoaderCircleIcon } from 'lucide-react';
-
+import { Label } from "./ui/label";
+import { Input } from "./ui/input";
+import { Checkbox } from "./ui/checkbox";
+import { LoaderCircleIcon } from "lucide-react";
+import { signIn } from "~/lib/auth-client";
+import { SignInValidator } from "~/lib/auth.validators";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const router = useRouter();
 
   async function onSubmit(event: React.SyntheticEvent) {
-    event.preventDefault()
-    setIsLoading(true)
+    event.preventDefault();
+    setIsLoading(true);
 
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 3000)
+    await signIn.email(
+      {
+        email: email,
+        password: password,
+      },
+      {
+        onRequest: () => {
+          //show loading
+        },
+        onSuccess: () => {
+          router.push("/dashboard");
+        },
+        onError: (ctx) => {
+          alert(ctx.error.message);
+        },
+      },
+    );
   }
 
   return (
@@ -52,11 +78,20 @@ export default function LoginForm() {
         </div>
         <div className="grid gap-2">
           <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" placeholder="m@example.com" />
+          <Input
+            id="email"
+            type="email"
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="m@example.com"
+          />
         </div>
         <div className="grid gap-2">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" type="password" />
+          <Input
+            id="password"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
         <div className="flex items-center space-x-2">
           <Checkbox id="remember" />
@@ -75,10 +110,13 @@ export default function LoginForm() {
           ) : null}
           Sign In
         </Button>
-        <p className="mt-2 text-md text-center text-gray-700">
-            New Here? <a href="/register" className="text-blue-500 underline">Join here</a>
+        <p className="text-md mt-2 text-center text-gray-700">
+          New Here?{" "}
+          <a href="/register" className="text-blue-500 underline">
+            Join here
+          </a>
         </p>
       </CardFooter>
     </Card>
-  )
+  );
 }
