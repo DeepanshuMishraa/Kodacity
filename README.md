@@ -7,6 +7,7 @@
 - [x] Setup the database and Work on the schema
 - [x] Setup Better-auth for authentication
 - [x] Design the Login/signup pages and set it up
+- [x] Added Auth Toasts
 - [ ] Create a dashboard for the user
 - [ ] Implement the design for the Problems page
 - [ ] Implement the design for the Contest page
