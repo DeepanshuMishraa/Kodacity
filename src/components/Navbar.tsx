@@ -8,6 +8,7 @@ import { Poppins, Lexend_Deca } from "next/font/google";
 import { signOut, useSession } from "~/lib/auth-client";
 import { Button } from "./ui/button";
 import { redirect } from "next/navigation";
+import { useToast } from "~/hooks/use-toast";
 
 const lex = Lexend_Deca({
   weight: ["100", "400", "700"],
@@ -18,6 +19,7 @@ const lex = Lexend_Deca({
 
 export default function LandingNavbar() {
   const [isOpen, setIsOpen] = React.useState(false);
+  const { toast } = useToast();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -67,13 +69,23 @@ export default function LandingNavbar() {
               </Link>
             ))} */}
             {session ? (
-              <Button onClick={()=>signOut({
-                fetchOptions:{
-                    onSuccess:()=>{
+              <Button
+                onClick={() =>
+                  signOut({
+                    fetchOptions: {
+                      onSuccess: () => {
+                        toast({
+                          title: "Logged Out",
+                          description: "You have successfully logged out",
+                        });
                         redirect("/login");
-                    }
+                      },
+                    },
+                  })
                 }
-              })}>Logout</Button>
+              >
+                Logout
+              </Button>
             ) : (
               <>
                 <Link href="/login">
