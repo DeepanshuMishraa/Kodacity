@@ -15,14 +15,15 @@ import { Input } from "./ui/input";
 import { Checkbox } from "./ui/checkbox";
 import { LoaderCircleIcon } from "lucide-react";
 import { signIn } from "~/lib/auth-client";
-import { SignInValidator } from "~/lib/auth.validators";
 import { useRouter } from "next/navigation";
+import { useToast } from "~/hooks/use-toast";
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const router = useRouter();
+  const { toast } = useToast();
 
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
@@ -35,13 +36,25 @@ export default function LoginForm() {
       },
       {
         onRequest: () => {
-          //show loading
+          toast({
+            title: "Signing you in..",
+            description: "Please wait while we sign you in",
+          });
         },
         onSuccess: () => {
+          toast({
+            title: "Welcome back!",
+            description: "You have been successfully signed in",
+          });
           router.push("/dashboard");
         },
         onError: (ctx) => {
-          alert(ctx.error.message);
+          setIsLoading(false);
+          toast({
+            title: "Error signin In",
+            description: ctx.error.message,
+            variant: "destructive",
+          });
         },
       },
     );

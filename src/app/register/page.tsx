@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import { Loader2 } from "lucide-react";
 import LandingNavbar from "~/components/Navbar";
 import { Button } from "~/components/ui/button";
@@ -9,6 +9,7 @@ import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { signUp } from "~/lib/auth-client";
+import { useToast } from "~/hooks/use-toast";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -16,15 +17,51 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { toast } = useToast();
 
-  const handleSubmit = async () => {
-    await signUp.email({
-      email,
-      password,
-      name,
-    });
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent default form submission
+    setIsLoading(true);
 
-    router.push("/login");
+    try {
+      await signUp.email(
+        {
+          email,
+          password,
+          name,
+        },
+        {
+          onSuccess: () => {
+            toast({
+              title: "Account created!",
+              description: "You have successfully created an account",
+            });
+            router.push("/login"); // Only redirect after successful signup
+          },
+          onRequest: () => {
+            toast({
+              title: "Creating account..",
+              description: "Please wait while we create your account",
+            });
+          },
+          onError: (ctx) => {
+            toast({
+              title: "Error signing up",
+              description: ctx.error.message,
+              variant: "destructive",
+            });
+          },
+        },
+      );
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
