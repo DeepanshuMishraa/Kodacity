@@ -21,15 +21,11 @@ model User {
   password      String?
   image         String?
   Role          Role  @default(USER)
-  Provider      Provider @default(EMAIL)
+  provider      String @default("email")
   @@map("user")
 }
 
-enum Provider {
-  GOOGLE
-  GITHUB
-  EMAIL
-}
+
 
 enum Role {
   USER

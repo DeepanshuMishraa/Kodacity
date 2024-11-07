@@ -7,6 +7,7 @@ import { FaGithub, FaGoogle } from "react-icons/fa"
 import { LoaderCircleIcon } from "lucide-react"
 import { PasswordInput } from "~/components/PasswordInput"
 import { Manrope } from "next/font/google"
+import { signIn } from "next-auth/react"
 
 const man = Manrope({
     weight: ["400", "700"],
@@ -57,46 +58,7 @@ export default function LoginForm() {
 //     )
 //   }
 
-//   const handleSocialLogin = async (provider: "github" | "google") => {
-//     try {
-//       setIsLoading(true)
-//       await signIn.social(
-//         {
-//           provider: provider,
-//         },
-//         {
-//           onRequest: () => {
-//             toast({
-//               title: `Connecting to ${provider}...`,
-//               description: "Please complete the authentication process",
-//             })
-//           },
-//           onSuccess: () => {
-//             toast({
-//               title: "Success!",
-//               description: "You have been successfully signed in",
-//             })
-//             router.push("/dashboard")
-//           },
-//           onError: (ctx) => {
-//             toast({
-//               title: "Error signing in",
-//               description: ctx.error.message,
-//               variant: "destructive",
-//             })
-//           },
-//         }
-//       )
-//     } catch (error) {
-//       toast({
-//         title: "Error",
-//         description: "An unexpected error occurred. Please try again.",
-//         variant: "destructive",
-//       })
-//     } finally {
-//       setIsLoading(false)
-//     }
-//   }
+
 
   return (
     <div
@@ -190,6 +152,7 @@ export default function LoginForm() {
                 <button
                   type="button"
                   disabled={isLoading}
+                  onClick={()=>signIn("google",{callbackUrl:"/dashboard"})}
                   className="flex w-full items-center justify-center gap-2 rounded-[4px] bg-[#111111] px-3 py-2 text-sm font-semibold text-white ring-1 ring-inset ring-[#222222] hover:bg-[#191919] disabled:opacity-50"
                 >
                   {isLoading ? (
