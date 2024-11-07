@@ -18,10 +18,10 @@ model User {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   emailVerified Boolean?
+  password      String?
   image         String?
-  Session       Session[]
-  Account       Account[]
-
+  Role          Role  @default(USER)
+  Provider      Provider @default(EMAIL)
   @@map("user")
 }
 
@@ -31,37 +31,7 @@ enum Provider {
   EMAIL
 }
 
-model Session {
-  id        String   @id
-  expiresAt DateTime
-  ipAddress String?
-  userAgent String?
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@map("session")
-}
-
-model Account {
-  id           String    @id
-  accountId    String
-  providerId   String
-  userId       String
-  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  accessToken  String?
-  refreshToken String?
-  idToken      String?
-  expiresAt    DateTime?
-  password     String?
-
-  @@map("account")
-}
-
-model Verification {
-  id         String   @id
-  identifier String
-  value      String
-  expiresAt  DateTime
-
-  @@map("verification")
+enum Role {
+  USER
+  ADMIN
 }

@@ -3,7 +3,6 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Loader2 } from "lucide-react"
-import { signUp } from "~/lib/auth-client"
 import { useToast } from "~/hooks/use-toast"
 import { PasswordInput } from "~/components/PasswordInput"
 import { Manrope } from "next/font/google"
@@ -23,50 +22,50 @@ export default function SignupForm() {
   const router = useRouter()
   const { toast } = useToast()
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
+//   const handleSubmit = async (e: React.FormEvent) => {
+//     e.preventDefault()
+//     setIsLoading(true)
 
-    try {
-      await signUp.email(
-        {
-          email,
-          password,
-          name,
-        },
-        {
-          onSuccess: () => {
-            toast({
-              title: "Account created!",
-              description: "You have successfully created an account",
-            })
-            router.push("/login")
-          },
-          onRequest: () => {
-            toast({
-              title: "Creating account..",
-              description: "Please wait while we create your account",
-            })
-          },
-          onError: (ctx) => {
-            toast({
-              title: "Error signing up",
-              description: ctx.error.message,
-              variant: "destructive",
-            })
-          },
-        }
-      )
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "An unexpected error occurred. Please try again.",
-        variant: "destructive",
-      })
-    } finally {
-      setIsLoading(false)
-    }
-  }
+//     try {
+//       await signUp.email(
+//         {
+//           email,
+//           password,
+//           name,
+//         },
+//         {
+//           onSuccess: () => {
+//             toast({
+//               title: "Account created!",
+//               description: "You have successfully created an account",
+//             })
+//             router.push("/login")
+//           },
+//           onRequest: () => {
+//             toast({
+//               title: "Creating account..",
+//               description: "Please wait while we create your account",
+//             })
+//           },
+//           onError: (ctx) => {
+//             toast({
+//               title: "Error signing up",
+//               description: ctx.error.message,
+//               variant: "destructive",
+//             })
+//           },
+//         }
+//       )
+//     } catch (error) {
+//       toast({
+//         title: "Error",
+//         description: "An unexpected error occurred. Please try again.",
+//         variant: "destructive",
+//       })
+//     } finally {
+//       setIsLoading(false)
+//     }
+//   }
 
   return (
     <>
@@ -85,7 +84,7 @@ export default function SignupForm() {
                   Create an account to start your coding journey.
                 </p>
 
-                <form onSubmit={handleSubmit} className="mt-8 space-y-4">
+                <form className="mt-8 space-y-4">
                   <div>
                     <label htmlFor="name" className="block text-sm text-white">
                       Name

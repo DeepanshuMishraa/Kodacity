@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { signIn } from "~/lib/auth-client"
 import { useRouter } from "next/navigation"
 import { useToast } from "~/hooks/use-toast"
 import { FaGithub, FaGoogle } from "react-icons/fa"
@@ -23,81 +22,81 @@ export default function LoginForm() {
   const router = useRouter()
   const { toast } = useToast()
 
-  async function onSubmit(event: React.SyntheticEvent) {
-    event.preventDefault()
-    setIsLoading(true)
+//   async function onSubmit(event: React.SyntheticEvent) {
+//     event.preventDefault()
+//     setIsLoading(true)
 
-    await signIn.email(
-      {
-        email: email,
-        password: password,
-      },
-      {
-        onRequest: () => {
-          toast({
-            title: "Signing you in..",
-            description: "Please wait while we sign you in",
-          })
-        },
-        onSuccess: () => {
-          toast({
-            title: "Welcome back!",
-            description: "You have been successfully signed in",
-          })
-          router.push("/dashboard")
-        },
-        onError: (ctx) => {
-          setIsLoading(false)
-          toast({
-            title: "Error signing in",
-            description: ctx.error.message,
-            variant: "destructive",
-          })
-        },
-      }
-    )
-  }
+//     await signIn.email(
+//       {
+//         email: email,
+//         password: password,
+//       },
+//       {
+//         onRequest: () => {
+//           toast({
+//             title: "Signing you in..",
+//             description: "Please wait while we sign you in",
+//           })
+//         },
+//         onSuccess: () => {
+//           toast({
+//             title: "Welcome back!",
+//             description: "You have been successfully signed in",
+//           })
+//           router.push("/dashboard")
+//         },
+//         onError: (ctx) => {
+//           setIsLoading(false)
+//           toast({
+//             title: "Error signing in",
+//             description: ctx.error.message,
+//             variant: "destructive",
+//           })
+//         },
+//       }
+//     )
+//   }
 
-  const handleSocialLogin = async (provider: "github" | "google") => {
-    try {
-      setIsLoading(true)
-      await signIn.social(
-        {
-          provider: provider,
-        },
-        {
-          onRequest: () => {
-            toast({
-              title: `Connecting to ${provider}...`,
-              description: "Please complete the authentication process",
-            })
-          },
-          onSuccess: () => {
-            toast({
-              title: "Success!",
-              description: "You have been successfully signed in",
-            })
-            router.push("/dashboard")
-          },
-          onError: (ctx) => {
-            toast({
-              title: "Error signing in",
-              description: ctx.error.message,
-              variant: "destructive",
-            })
-          },
-        }
-      )
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "An unexpected error occurred. Please try again.",
-        variant: "destructive",
-      })
-    } finally {
-      setIsLoading(false)
-    }
-  }
+//   const handleSocialLogin = async (provider: "github" | "google") => {
+//     try {
+//       setIsLoading(true)
+//       await signIn.social(
+//         {
+//           provider: provider,
+//         },
+//         {
+//           onRequest: () => {
+//             toast({
+//               title: `Connecting to ${provider}...`,
+//               description: "Please complete the authentication process",
+//             })
+//           },
+//           onSuccess: () => {
+//             toast({
+//               title: "Success!",
+//               description: "You have been successfully signed in",
+//             })
+//             router.push("/dashboard")
+//           },
+//           onError: (ctx) => {
+//             toast({
+//               title: "Error signing in",
+//               description: ctx.error.message,
+//               variant: "destructive",
+//             })
+//           },
+//         }
+//       )
+//     } catch (error) {
+//       toast({
+//         title: "Error",
+//         description: "An unexpected error occurred. Please try again.",
+//         variant: "destructive",
+//       })
+//     } finally {
+//       setIsLoading(false)
+//     }
+//   }
 
   return (
     <div
@@ -113,7 +112,7 @@ export default function LoginForm() {
                 Welcome back! Enter your email and password to continue.
               </p>
 
-              <form onSubmit={onSubmit} className="mt-8 space-y-4">
+              <form className="mt-8 space-y-4">
                 <div>
                   <label htmlFor="email" className="block text-sm text-white">
                     Email
@@ -178,7 +177,6 @@ export default function LoginForm() {
               <div className="grid grid-cols-2 gap-4">
                 <button
                   type="button"
-                  onClick={() => handleSocialLogin("github")}
                   disabled={isLoading}
                   className="flex w-full items-center justify-center gap-2 rounded-[4px] bg-[#111111] px-3 py-2 text-sm font-semibold text-white ring-1 ring-inset ring-[#222222] hover:bg-[#191919] disabled:opacity-50"
                 >
@@ -191,7 +189,6 @@ export default function LoginForm() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => handleSocialLogin("google")}
                   disabled={isLoading}
                   className="flex w-full items-center justify-center gap-2 rounded-[4px] bg-[#111111] px-3 py-2 text-sm font-semibold text-white ring-1 ring-inset ring-[#222222] hover:bg-[#191919] disabled:opacity-50"
                 >

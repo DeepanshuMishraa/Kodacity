@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { signIn } from "~/lib/auth-client"
 import { useRouter } from "next/navigation"
 import { useToast } from "~/hooks/use-toast"
 import { FaGithub, FaGoogle } from "react-icons/fa"
@@ -18,40 +17,40 @@ export default function LoginForm() {
   const router = useRouter()
   const { toast } = useToast()
 
-  async function onSubmit(event: React.SyntheticEvent) {
-    event.preventDefault()
-    setIsLoading(true)
+//   async function onSubmit(event: React.SyntheticEvent) {
+//     event.preventDefault()
+//     setIsLoading(true)
 
-    await signIn.email(
-      {
-        email: email,
-        password: password,
-      },
-      {
-        onRequest: () => {
-          toast({
-            title: "Signing you in..",
-            description: "Please wait while we sign you in",
-          })
-        },
-        onSuccess: () => {
-          toast({
-            title: "Welcome back!",
-            description: "You have been successfully signed in",
-          })
-          router.push("/dashboard")
-        },
-        onError: (ctx) => {
-          setIsLoading(false)
-          toast({
-            title: "Error signing in",
-            description: ctx.error.message,
-            variant: "destructive",
-          })
-        },
-      }
-    )
-  }
+//     await signIn.email(
+//       {
+//         email: email,
+//         password: password,
+//       },
+//       {
+//         onRequest: () => {
+//           toast({
+//             title: "Signing you in..",
+//             description: "Please wait while we sign you in",
+//           })
+//         },
+//         onSuccess: () => {
+//           toast({
+//             title: "Welcome back!",
+//             description: "You have been successfully signed in",
+//           })
+//           router.push("/dashboard")
+//         },
+//         onError: (ctx) => {
+//           setIsLoading(false)
+//           toast({
+//             title: "Error signing in",
+//             description: ctx.error.message,
+//             variant: "destructive",
+//           })
+//         },
+//       }
+//     )
+//   }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50">
@@ -60,7 +59,7 @@ export default function LoginForm() {
           <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-pink-200 opacity-50"></div>
           <div className="relative p-8">
             <h2 className="mb-6 text-3xl font-bold text-gray-800">Welcome Back</h2>
-            <form onSubmit={onSubmit} className="space-y-6">
+            <form  className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-sm font-medium text-gray-700">
                   Email
@@ -116,16 +115,6 @@ export default function LoginForm() {
               <Button
                 variant="outline"
                 className="w-full border-gray-300 bg-white/50 backdrop-blur-sm hover:bg-gray-100"
-                onClick={async () => {
-                  await signIn.social({
-                    provider: "github",
-                    fetchOptions: {
-                      onSuccess: () => {
-                        router.push("/dashboard")
-                      },
-                    },
-                  })
-                }}
               >
                 <FaGithub className="mr-2 h-4 w-4" />
                 Github
@@ -133,16 +122,6 @@ export default function LoginForm() {
               <Button
                 variant="outline"
                 className="w-full border-gray-300 bg-white/50 backdrop-blur-sm hover:bg-gray-100"
-                onClick={async () => {
-                  await signIn.social({
-                    provider: "google",
-                    fetchOptions: {
-                      onSuccess: () => {
-                        router.push("/dashboard")
-                      },
-                    },
-                  })
-                }}
               >
                 <FaGoogle className="mr-2 h-4 w-4" />
                 Google
