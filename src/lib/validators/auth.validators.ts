@@ -13,4 +13,4 @@ export const SignUpSchema = z.object({
   password: z.string().min(8),
 });
 
-export type signUpSchema = z.infer<typeof SignUpSchema>;
+export type signUpSchemaType = z.infer<typeof SignUpSchema>;
