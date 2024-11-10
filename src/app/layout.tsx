@@ -4,6 +4,7 @@ import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import { Toaster } from "~/components/ui/toaster";
 import { Providers } from "./Providers";
+import Footer from "~/components/Footer";
 
 export const metadata: Metadata = {
   title: "Kodacity - For the dev by the dev",
@@ -18,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
-        <Providers>{children}</Providers>
+        <Providers>{children}<Footer/></Providers>
         <Toaster />
       </body>
     </html>
