@@ -158,6 +158,9 @@ dependencies:
   react-hook-form:
     specifier: ^7.53.1
     version: 7.53.1(react@18.3.1)
+  react-icon-cloud:
+    specifier: ^4.1.4
+    version: 4.1.4(react@18.3.1)
   react-icons:
     specifier: ^5.3.0
     version: 5.3.0(react@18.3.1)
@@ -274,6 +277,11 @@ packages:
 
   /@better-fetch/fetch@1.1.12:
     resolution: {integrity: sha512-B3bfloI/2UBQWIATRN6qmlORrvx3Mp0kkNjmXLv0b+DtbtR+pP4/I5kQA/rDUv+OReLywCCldf6co4LdDmh8JA==}
+    dev: false
+
+  /@csstools/convert-colors@2.0.0:
+    resolution: {integrity: sha512-P7BVvddsP2Wl5v3drJ3ArzpdfXMqoZ/oHOV/yFiGFb3JQr9Z9UXZ9tnHAKJsO89lfprR1F9ExW3Yij21EjEBIA==}
+    engines: {node: '>=6.0.0'}
     dev: false
 
   /@emnapi/core@0.45.0:
@@ -5364,6 +5372,16 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
     dependencies:
+      react: 18.3.1
+    dev: false
+
+  /react-icon-cloud@4.1.4(react@18.3.1):
+    resolution: {integrity: sha512-hc8yGNU98V6ObPdeNIt75M016xGMxbTWqB4l6exo1uwE5bvFU095unMbX2K3YBKYhGKEV3c7fSmq3jD3cRWX+A==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16'
+    dependencies:
+      '@csstools/convert-colors': 2.0.0
       react: 18.3.1
     dev: false
 

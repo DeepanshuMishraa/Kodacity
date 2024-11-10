@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   BadgeCheck,
@@ -17,14 +17,15 @@ import {
   Send,
   Settings,
   User,
-} from "lucide-react"
+} from "lucide-react";
+import { signOut, useSession } from "next-auth/react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "~/components/ui/collapsible"
+} from "~/components/ui/collapsible";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,7 +34,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "~/components/ui/dropdown-menu"
+} from "~/components/ui/dropdown-menu";
 import {
   Sidebar,
   SidebarContent,
@@ -49,7 +50,8 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "~/components/ui/sidebar"
+} from "~/components/ui/sidebar";
+import { Button } from "./ui/button";
 
 const data = {
   user: {
@@ -81,7 +83,13 @@ const data = {
       title: "DSA",
       url: "#",
       icon: GraduationCap,
-      items: ["Arrays", "Linked Lists", "Trees", "Graphs", "Dynamic Programming"],
+      items: [
+        "Arrays",
+        "Linked Lists",
+        "Trees",
+        "Graphs",
+        "Dynamic Programming",
+      ],
     },
     {
       title: "CP",
@@ -107,9 +115,10 @@ const data = {
       icon: Send,
     },
   ],
-}
+};
 
 export function SidebarComponent() {
+  const session = useSession();
   return (
     <Sidebar>
       <SidebarHeader>
@@ -122,7 +131,9 @@ export function SidebarComponent() {
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">Kodacity</span>
-                  <span className="truncate text-xs">Learn, Practice, Excel</span>
+                  <span className="truncate text-xs">
+                    Learn, Practice, Excel
+                  </span>
                 </div>
               </a>
             </SidebarMenuButton>
@@ -155,7 +166,9 @@ export function SidebarComponent() {
                           {item.items?.map((subItem) => (
                             <SidebarMenuSubItem key={subItem}>
                               <SidebarMenuSubButton asChild>
-                                <a href={`${item.url}/${subItem.toLowerCase().replace(' ', '-')}`}>
+                                <a
+                                  href={`${item.url}/${subItem.toLowerCase().replace(" ", "-")}`}
+                                >
                                   <span>{subItem}</span>
                                 </a>
                               </SidebarMenuSubButton>
@@ -197,12 +210,19 @@ export function SidebarComponent() {
                   className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                 >
                   <Avatar className="h-8 w-8 rounded-lg">
-                    <AvatarImage src={data.user.avatar} alt={data.user.name} />
-                    <AvatarFallback className="rounded-lg">AJ</AvatarFallback>
+                    <AvatarImage
+                      src={data.user.avatar}
+                      alt={session?.data?.user?.name as string}
+                    />
+                    <AvatarFallback className="rounded-lg">U</AvatarFallback>
                   </Avatar>
                   <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate font-semibold">{data.user.name}</span>
-                    <span className="truncate text-xs">{data.user.credits} credits</span>
+                    <span className="truncate font-semibold">
+                      {session?.data?.user?.name}
+                    </span>
+                    <span className="truncate text-xs">
+                      {data.user.credits} credits
+                    </span>
                   </div>
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
@@ -215,12 +235,19 @@ export function SidebarComponent() {
                 <DropdownMenuLabel className="p-0 font-normal">
                   <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                     <Avatar className="h-8 w-8 rounded-lg">
-                      <AvatarImage src={data.user.avatar} alt={data.user.name} />
-                      <AvatarFallback className="rounded-lg">AJ</AvatarFallback>
+                      <AvatarImage
+                        src={data.user.avatar}
+                        alt={session?.data?.user?.name as string}
+                      />
+                      <AvatarFallback className="rounded-lg">U</AvatarFallback>
                     </Avatar>
                     <div className="grid flex-1 text-left text-sm leading-tight">
-                      <span className="truncate font-semibold">{data.user.name}</span>
-                      <span className="truncate text-xs">{data.user.email}</span>
+                      <span className="truncate font-semibold">
+                        {session?.data?.user?.name}
+                      </span>
+                      <span className="truncate text-xs">
+                        {session?.data?.user?.email}
+                      </span>
                     </div>
                   </div>
                 </DropdownMenuLabel>
@@ -241,8 +268,10 @@ export function SidebarComponent() {
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  Log out
+                  <Button onClick={() => signOut()}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Log out
+                  </Button>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -250,5 +279,5 @@ export function SidebarComponent() {
         </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }
