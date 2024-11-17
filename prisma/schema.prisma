@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -20,32 +17,33 @@ model User {
   emailVerified Boolean?
   password      String?
   image         String?
-  Role          Role  @default(USER)
-  provider      String @default("email")
-  Problems Problem[]
+  Role          Role      @default(USER)
+  provider      String    @default("email")
+  Problems      Problem[]
+
   @@map("user")
 }
 
-model Problem{
-    id String @id @default(cuid())
-    title String
-    description String
-    difficulty Difficulty
-    userId String
-    user User @relation(fields: [userId],references: [id])
-    tags String[]
-    createdAt DateTime @default(now())
+model Problem {
+  id          String     @id @default(cuid())
+  title       String
+  description String
+  difficulty  Difficulty @default(EASY)
+  userId      String
+  user        User       @relation(fields: [userId], references: [id])
+  tags        String[]
+  createdAt   DateTime   @default(now())
+
+  @@map("problem")
 }
-
-
 
 enum Role {
   USER
   ADMIN
 }
 
-enum Difficulty{
-    EASY
-    MEDIUM
-    HARD
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
 }
