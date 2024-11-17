@@ -35,7 +35,7 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
-  const {data:session} = useSession();
+  const { data: session } = useSession();
 
   const form = useForm<signInSchemaType>({
     resolver: zodResolver(SignInSchema),
@@ -68,16 +68,16 @@ export default function LoginForm() {
         return;
       }
 
-      if(session?.user?.role == "ADMIN"){
-        router.push("/admin/dashboard");
-      }
-
       toast({
         title: "Login Successful, Welcome Back!",
         variant: "default",
       });
 
-      router.push("/dashboard");
+      if (session?.user?.role === "ADMIN") {
+        router.push("/admin/dashboard");
+      } else {
+        router.push("/dashboard");
+      }
     } catch (err) {
       toast({
         title: "Internal server error",
