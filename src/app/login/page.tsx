@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useToast } from "~/hooks/use-toast";
 import { LoaderCircle, Eye, EyeOff } from "lucide-react";
 import { Manrope } from "next/font/google";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import {
   SignInSchema,
@@ -35,6 +35,7 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
+  const {data:session} = useSession();
 
   const form = useForm<signInSchemaType>({
     resolver: zodResolver(SignInSchema),
@@ -65,6 +66,10 @@ export default function LoginForm() {
         });
         setIsLoading(false);
         return;
+      }
+
+      if(session?.user?.role == "ADMIN"){
+        router.push("/admin/dashboard");
       }
 
       toast({

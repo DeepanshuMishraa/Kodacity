@@ -22,7 +22,19 @@ model User {
   image         String?
   Role          Role  @default(USER)
   provider      String @default("email")
+  Problems Problem[]
   @@map("user")
+}
+
+model Problem{
+    id String @id @default(cuid())
+    title String
+    description String
+    difficulty Difficulty
+    userId String
+    user User @relation(fields: [userId],references: [id])
+    tags String[]
+    createdAt DateTime @default(now())
 }
 
 
@@ -30,4 +42,10 @@ model User {
 enum Role {
   USER
   ADMIN
+}
+
+enum Difficulty{
+    EASY
+    MEDIUM
+    HARD
 }
