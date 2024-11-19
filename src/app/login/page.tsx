@@ -74,7 +74,7 @@ export default function LoginForm() {
       });
 
       if (session?.user?.role === "ADMIN") {
-        router.push("/admin/dashboard");
+        router.push("/admin");
       } else {
         router.push("/dashboard");
       }

@@ -7,11 +7,11 @@ import RestrictedPage from "~/components/Restricted";
 const AdminDashboard = () => {
 
     const {data:session} = useSession();
-    // if(session?.user.role != 'ADMIN'){
-    //     return (
-    //         <RestrictedPage/>
-    //     )
-    // }
+    if(session?.user.role != 'ADMIN'){
+        return (
+            <RestrictedPage/>
+        )
+    }
   return (
     <AdminDashboardComponent/>
   )

@@ -9,7 +9,7 @@ dependencies:
     specifier: ^3.9.1
     version: 3.9.1(react-hook-form@7.53.1)
   '@prisma/client':
-    specifier: ^5.14.0
+    specifier: ^5.21.1
     version: 5.21.1(prisma@5.21.1)
   '@radix-ui/react-accordion':
     specifier: ^1.2.1
@@ -227,7 +227,7 @@ devDependencies:
     specifier: ^0.6.5
     version: 0.6.8(prettier@3.3.3)
   prisma:
-    specifier: ^5.14.0
+    specifier: ^5.21.1
     version: 5.21.1
   tailwindcss:
     specifier: ^3.4.3
