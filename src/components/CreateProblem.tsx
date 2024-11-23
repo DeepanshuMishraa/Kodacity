@@ -37,12 +37,12 @@ import {
 import { createProblem } from "~/actions/problems.actions";
 import { useToast } from "~/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { X } from "lucide-react";
 
 export default function CreateProblem() {
-  const [tags, setTags] = useState<string[]>([]);
-  const {toast} = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
   const router = useRouter();
-
 
   const form = useForm<ProblemSchemaType>({
     resolver: zodResolver(ProblemSchema),
@@ -54,41 +54,58 @@ export default function CreateProblem() {
     },
   });
 
-  const onSubmit = async(data: ProblemSchemaType) => {
-    try {
-      const response = await createProblem(data);
-      if(response?.status===201){
-        toast({
-            title: "Problem Created Successfully",
-            description: "Problem has been successfully created",
-            variant: "default",
-        })
+  const onSubmit = async (data: ProblemSchemaType) => {
+    if (isSubmitting) return;
 
+    try {
+      setIsSubmitting(true);
+      const response = await createProblem(data);
+
+      if (response?.status === 201) {
+        toast({
+          title: "Success",
+          description: "Problem created successfully",
+          variant: "default",
+        });
+        router.push("/dashboard");
         router.refresh();
-      }else{
+      } else {
         toast({
-            title: "Error creating problem",
-            description: response?.message || "Internal server error",
-            variant: "destructive",
-        })
+          title: "Error",
+          description: response?.message || "Failed to create problem",
+          variant: "destructive",
+        });
       }
-    } catch (err) {
-        toast({
-            title: "Error creating problem",
-            description: "Internal server error",
-            variant: "destructive",
-        })
-      console.log(err);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred",
+        variant: "destructive",
+      });
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
     }
-  }
+  };
 
   const handleAddTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && e.currentTarget.value) {
+    if (e.key === "Enter" && e.currentTarget.value.trim()) {
       e.preventDefault();
-      setTags([...tags, e.currentTarget.value]);
-      e.currentTarget.value = "";
-      form.setValue("tags", [...tags, e.currentTarget.value]);
+      const newTag = e.currentTarget.value.trim();
+      const currentTags = form.getValues("tags");
+
+      if (!currentTags.includes(newTag)) {
+        const updatedTags = [...currentTags, newTag];
+        form.setValue("tags", updatedTags, { shouldValidate: true });
+        e.currentTarget.value = "";
+      }
     }
+  };
+
+  const removeTag = (tagToRemove: string) => {
+    const currentTags = form.getValues("tags");
+    const updatedTags = currentTags.filter(tag => tag !== tagToRemove);
+    form.setValue("tags", updatedTags, { shouldValidate: true });
   };
 
   return (
@@ -96,9 +113,9 @@ export default function CreateProblem() {
       <CardHeader>
         <CardTitle>Create New Problem</CardTitle>
       </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <CardContent className="space-y-6">
             <FormField
               control={form.control}
               name="title"
@@ -121,6 +138,7 @@ export default function CreateProblem() {
                   <FormControl>
                     <Textarea
                       placeholder="Enter problem description"
+                      className="min-h-32"
                       {...field}
                     />
                   </FormControl>
@@ -158,7 +176,7 @@ export default function CreateProblem() {
             <FormField
               control={form.control}
               name="tags"
-              render={() => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Tags</FormLabel>
                   <FormControl>
@@ -171,12 +189,19 @@ export default function CreateProblem() {
                     Press Enter to add a tag. At least one tag is required.
                   </FormDescription>
                   <div className="mt-2 flex flex-wrap gap-2">
-                    {tags.map((tag, index) => (
+                    {field.value.map((tag, index) => (
                       <span
                         key={index}
-                        className="rounded-full bg-primary px-2 py-1 text-sm text-primary-foreground"
+                        className="flex items-center gap-1 rounded-full bg-primary px-3 py-1 text-sm text-primary-foreground"
                       >
                         {tag}
+                        <button
+                          type="button"
+                          onClick={() => removeTag(tag)}
+                          className="ml-1 rounded-full hover:bg-primary-foreground/20"
+                        >
+                          <X className="h-3 w-3" />
+                        </button>
                       </span>
                     ))}
                   </div>
@@ -184,14 +209,18 @@ export default function CreateProblem() {
                 </FormItem>
               )}
             />
-          </form>
-        </Form>
-      </CardContent>
-      <CardFooter>
-        <Button type="submit" onClick={form.handleSubmit(onSubmit)}>
-          Create Problem
-        </Button>
-      </CardFooter>
+          </CardContent>
+          <CardFooter>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full"
+            >
+              {isSubmitting ? "Creating..." : "Create Problem"}
+            </Button>
+          </CardFooter>
+        </form>
+      </Form>
     </Card>
   );
 }
