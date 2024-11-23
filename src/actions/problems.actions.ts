@@ -5,10 +5,10 @@ import { ProblemSchema } from "~/lib/validators/problems.validators";
 import { db } from "~/server/db";
 import { Prisma } from "@prisma/client";
 import { authOptions } from "~/lib/authOptions";
+import Error from "next/error";
 
 export const createProblem = async (_data: unknown) => {
   try {
-
     const session = await getServerSession(authOptions);
 
     if (!session?.user) {
@@ -17,7 +17,6 @@ export const createProblem = async (_data: unknown) => {
         status: 401,
       };
     }
-
 
     const user = await db.user.findUnique({
       where: {
@@ -31,7 +30,6 @@ export const createProblem = async (_data: unknown) => {
         status: 403,
       };
     }
-
 
     const data = ProblemSchema.parse(_data);
 
@@ -90,7 +88,32 @@ export const createProblem = async (_data: unknown) => {
     return {
       message: "Error creating problem",
       status: 500,
-      error: err instanceof Error ? err.message : "Unknown error",
+      error: err instanceof Error ? err : "Unknown error",
+    };
+  }
+};
+
+export const getProblem = async () => {
+  try {
+    const problems = await db.problem.findMany({
+      select: {
+        title: true,
+        description: true,
+        difficulty: true,
+        tags: true,
+      },
+    });
+
+    return {
+      status: 201,
+      problem: problems,
+    };
+  } catch (err: any) {
+    console.error("Error getting problem:", err);
+
+    return {
+      message: "Error getting problem",
+      status: 500,
     };
   }
 };

@@ -67,7 +67,7 @@ export default function CreateProblem() {
           description: "Problem created successfully",
           variant: "default",
         });
-        router.push("/dashboard");
+        router.push("/admin");
         router.refresh();
       } else {
         toast({
