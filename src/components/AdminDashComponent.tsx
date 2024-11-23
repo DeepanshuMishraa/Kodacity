@@ -143,7 +143,7 @@ export default function AdminDashComponent() {
         <Card className="w-full">
           <CardContent className="flex flex-col items-center justify-center py-12">
             <p className="text-gray-500 mb-4">No problems found</p>
-            <Link href="/admin/create">
+            <Link href="/admin/problems/create">
               <Button>Create Your First Problem</Button>
             </Link>
           </CardContent>
