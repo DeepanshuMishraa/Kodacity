@@ -4,6 +4,7 @@ declare module "next-auth" {
   interface User {
     emailVerified: boolean;
     role: string;
+    password?:string;
   }
   interface Session {
     user: {
