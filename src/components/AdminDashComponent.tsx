@@ -52,7 +52,7 @@ export default function AdminDashComponent() {
     return (
       <div className="container mx-auto p-6">
         <Card className="w-full">
-          <CardContent className="flex justify-center items-center min-h-[200px]">
+          <CardContent className="flex min-h-[200px] items-center justify-center">
             <p className="text-gray-500">Loading...</p>
           </CardContent>
         </Card>
@@ -66,42 +66,49 @@ export default function AdminDashComponent() {
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty.toLowerCase()) {
-      case 'easy':
-        return 'text-green-600 bg-green-100';
-      case 'medium':
-        return 'text-yellow-600 bg-yellow-100';
-      case 'hard':
-        return 'text-red-600 bg-red-100';
+      case "easy":
+        return "text-green-600 bg-green-100";
+      case "medium":
+        return "text-yellow-600 bg-yellow-100";
+      case "hard":
+        return "text-red-600 bg-red-100";
       default:
-        return 'text-gray-600 bg-gray-100';
+        return "text-gray-600 bg-gray-100";
     }
   };
 
   return (
     <div className="container mx-auto p-6">
-      <div className="flex justify-between items-center mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold">Problem Dashboard</h1>
-        <Link href="/admin/create">
+        <Link href="/admin/problems/create">
           <Button className="bg-blue-600 hover:bg-blue-700">
             Create New Problem
           </Button>
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {problems.problem?.map((problem, index) => (
-          <Card key={index} className="w-full hover:shadow-lg transition-shadow duration-300">
+          <Card
+            key={index}
+            className="w-full transition-shadow duration-300 hover:shadow-lg"
+          >
             <CardHeader>
-              <div className="flex justify-between items-start">
-                <CardTitle className="text-xl font-bold">{problem.title}</CardTitle>
-                <span className={`px-3 py-1 rounded-full text-sm font-medium ${getDifficultyColor(problem.difficulty)}`}>
+              <div className="flex items-start justify-between">
+                <CardTitle className="text-xl font-bold">
+                  {problem.title}
+                </CardTitle>
+                <span
+                  className={`rounded-full px-3 py-1 text-sm font-medium ${getDifficultyColor(problem.difficulty)}`}
+                >
                   {problem.difficulty}
                 </span>
               </div>
             </CardHeader>
 
             <CardContent>
-              <p className="text-gray-600 mb-4 line-clamp-3">
+              <p className="mb-4 line-clamp-3 text-gray-600">
                 {problem.description}
               </p>
             </CardContent>
@@ -110,15 +117,15 @@ export default function AdminDashComponent() {
               {problem.tags.map((tag, tagIndex) => (
                 <span
                   key={tagIndex}
-                  className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm"
+                  className="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700"
                 >
                   {tag}
                 </span>
               ))}
             </CardFooter>
 
-            <CardFooter className="pt-4 border-t">
-              <div className="flex gap-2 w-full">
+            <CardFooter className="border-t pt-4">
+              <div className="flex w-full gap-2">
                 <Button
                   variant="outline"
                   className="flex-1"
@@ -142,7 +149,7 @@ export default function AdminDashComponent() {
       {(!problems.problem || problems.problem.length === 0) && (
         <Card className="w-full">
           <CardContent className="flex flex-col items-center justify-center py-12">
-            <p className="text-gray-500 mb-4">No problems found</p>
+            <p className="mb-4 text-gray-500">No problems found</p>
             <Link href="/admin/problems/create">
               <Button>Create Your First Problem</Button>
             </Link>
