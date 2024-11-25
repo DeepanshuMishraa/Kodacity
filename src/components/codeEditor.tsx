@@ -4,7 +4,7 @@ export default function CodeEditor() {
   return (
     <Editor
       height="90vh"
-      defaultLanguage="javascript"
+      defaultLanguage="c++"
       defaultValue="// some comment"
     />
   );

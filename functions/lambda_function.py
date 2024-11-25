@@ -46,9 +46,10 @@ def execute_cpp_code(code):
     finally:
         subprocess.run(['rm','Main.cpp','Main'])
 
-def handler(event,context):
-    language = event.get('language','python')
+def handler(event, context):
+    language = event.get('language', 'python')
     code = event.get('code')
+
     if language == 'python':
         result = execute_python_code(code)
     elif language == 'java':
@@ -56,9 +57,14 @@ def handler(event,context):
     elif language == 'cpp':
         result = execute_cpp_code(code)
     else:
-        result = "Unsupported Language" + language
+        result = f"Unsupported Language: {language}"
 
     return {
-        'statusCode':200,
-        'body':result
+        'statusCode': 200,
+        'headers': {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST',
+            'Access-Control-Allow-Headers': 'Content-Type',  
+        },
+        'body': result
     }
