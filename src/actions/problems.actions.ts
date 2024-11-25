@@ -5,7 +5,7 @@ import { ProblemSchema } from "~/lib/validators/problems.validators";
 import { db } from "~/server/db";
 import { Prisma } from "@prisma/client";
 import { authOptions } from "~/lib/authOptions";
-import Error from "next/error";
+
 
 export const createProblem = async (_data: unknown) => {
   try {
@@ -92,5 +92,3 @@ export const createProblem = async (_data: unknown) => {
     };
   }
 };
-
-

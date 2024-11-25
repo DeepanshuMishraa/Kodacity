@@ -81,7 +81,7 @@ const data = {
     },
     {
       title: "DSA",
-      url: "#",
+      url: "/dashboard/dsa",
       icon: GraduationCap,
       items: [
         "Arrays",

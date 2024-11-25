@@ -10,6 +10,7 @@ export const getProblem = async () => {
         description: true,
         difficulty: true,
         tags: true,
+        id:true
       },
     });
 
@@ -18,7 +19,7 @@ export const getProblem = async () => {
       problem: problems,
     };
   } catch (err: any) {
-    console.error("Error getting problem:", err);
+    // console.error("Error getting problem:", err);
 
     return {
       message: "Error getting problem",
