@@ -11,10 +11,9 @@ export default async function Page({
 }) {
   const response = await getProblemByID(id);
 
-  // Handle error response
   if (response.status !== 200 || !response.problem) {
     return (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex h-screen items-center justify-center">z
         <Card className="w-full max-w-md">
           <CardContent className="pt-6">
             <p className="text-center text-lg text-red-500">

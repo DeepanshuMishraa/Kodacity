@@ -59,7 +59,7 @@ export const createProblem = async (_data: unknown) => {
   } catch (err: any) {
     console.error("Error creating problem:", err);
 
-    // Handle Prisma errors
+
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
       if (err.code === "P2002") {
         return {
@@ -76,7 +76,6 @@ export const createProblem = async (_data: unknown) => {
       }
     }
 
-    // Handle Zod validation errors
     if (err.name === "ZodError") {
       return {
         message: "Invalid input data",
@@ -85,7 +84,7 @@ export const createProblem = async (_data: unknown) => {
       };
     }
 
-    // Generic error response
+
     return {
       message: "Error creating problem",
       status: 500,
