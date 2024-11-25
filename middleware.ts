@@ -2,8 +2,8 @@ import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function middleware(req: NextRequest) {
-  const token = await getToken({ req, secret: process.env.SECRET });
-  const { pathname } = new URL(req.url);
+  const token = await getToken({ req });
+  const pathname = req.nextUrl.pathname;
 
   if (pathname.startsWith("/admin")) {
     if (!token) {
