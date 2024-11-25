@@ -37,7 +37,7 @@ export default function CodeEditorClient({ problem }: { problem: any }) {
     setIsRunning(true);
     try {
       const res = await axios.post(
-        "/api/2015-03-31/functions/function/invocations",
+        "/execute/2015-03-31/functions/function/invocations",
         {
           code,
           language: "cpp", // You can dynamically set this based on `problem.language`

@@ -18,7 +18,7 @@ const config = {
   async rewrites() {
     return [
       {
-        source: "/api/:path*", // Any request to `/api/...`
+        source: "/execute/:path*", // Any request to `/api/...`
         destination: "http://localhost:9000/:path*", // Forward to Docker container
       },
     ];
