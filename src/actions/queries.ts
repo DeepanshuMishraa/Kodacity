@@ -10,7 +10,7 @@ export const getProblem = async () => {
         description: true,
         difficulty: true,
         tags: true,
-        id:true
+        id: true,
       },
     });
 
@@ -25,5 +25,29 @@ export const getProblem = async () => {
       message: "Error getting problem",
       status: 500,
     };
+  }
+};
+
+export const getProblemByID = async (id: string) => {
+  try {
+    const problem = await db.problem.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!problem) {
+      return {
+        message: "Problem doesn't exist",
+        status: 400,
+      };
+    }
+
+    return {
+      status: 200,
+      problem,
+    };
+  } catch (err) {
+    throw new Error(`Error getting problem by id: ${err}`);
   }
 };

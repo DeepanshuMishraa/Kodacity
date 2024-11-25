@@ -22,7 +22,7 @@ export default async function DSA() {
       <div className="mt-4 p-4">
         {problems.problem?.map((prb, index) => (
             <Link href={`/dashboard/dsa/${prb.id}`}>
-          <Card className="flex items-center justify-between" key={index}>
+          <Card className="flex items-center justify-betzween" key={index}>
             <CardHeader>
               <CardTitle>{prb.title}</CardTitle>
               <CardDescription>{prb.description}</CardDescription>
