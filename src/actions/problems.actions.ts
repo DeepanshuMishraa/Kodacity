@@ -38,6 +38,7 @@ export const createProblem = async (_data: unknown) => {
         title: data.title,
         description: data.description,
         difficulty: data.difficulty,
+        example:data.example,
         tags: data.tags,
         user: {
           connect: {
