@@ -51,6 +51,7 @@ export default function CreateProblem() {
       description: "",
       difficulty: Difficulty.EASY,
       tags: [],
+      example: "",
     },
   });
 
@@ -142,6 +143,26 @@ export default function CreateProblem() {
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="example"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Example</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Enter an example input/output"
+                      className="min-h-32"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Provide a clear example demonstrating the problem
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

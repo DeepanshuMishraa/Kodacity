@@ -12,6 +12,14 @@ import {
 
 export default async function DSA() {
   const problems = await getProblem();
+
+  if(problems.problem?.length === 0){
+    return(
+        <div className="flex items-center min-h-screen justify-center">
+            <h1>No Problems Found, You can create problems <a href="/admin/problems/create" className="text-blue-500 underline">here</a></h1>
+        </div>
+    )
+  }
   return (
     <div className="">
       <nav className="flex items-center justify-between border-b p-4">
