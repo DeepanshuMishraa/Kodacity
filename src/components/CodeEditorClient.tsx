@@ -13,6 +13,10 @@ import {
 import { PlayIcon, RotateCcwIcon } from "lucide-react";
 import axios from "axios";
 import { useToast } from "~/hooks/use-toast";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+
+
+
 
 export default function CodeEditorClient({ problem }: { problem: any }) {
   const [code, setCode] = useState(
@@ -21,6 +25,7 @@ export default function CodeEditorClient({ problem }: { problem: any }) {
   const { toast } = useToast();
   const [output, setOutput] = useState("");
   const [isRunning, setIsRunning] = useState(false);
+  const [language,setLanguage] = useState("cpp");
 
   const handleEditorChange = (value: string | undefined) => {
     if (value !== undefined) {
@@ -40,7 +45,7 @@ export default function CodeEditorClient({ problem }: { problem: any }) {
         "/execute/2015-03-31/functions/function/invocations",
         {
           code,
-          language: "cpp", // You can dynamically set this based on `problem.language`
+          language: language, // You can dynamically set this based on `problem.language`
         },
         { headers: { "Content-Type": "application/json" } },
       );
@@ -66,8 +71,13 @@ export default function CodeEditorClient({ problem }: { problem: any }) {
 
   return (
     <Card className="flex h-full flex-col border border-gray-200 shadow-md">
-      <CardHeader>
+      <CardHeader className="flex">
         <CardTitle className="text-lg font-semibold">Code Editor</CardTitle>
+        <select onChange={(e)=>setLanguage(e.target.value)}>
+            <option value="cpp">C++</option>
+            <option value="java">Java</option>
+            <option value="python">Python</option>
+        </select>
       </CardHeader>
       <CardContent className="flex-grow">
         <Editor
