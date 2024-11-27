@@ -99,7 +99,7 @@ const data = {
     },
     {
       title: "Projects",
-      url: "/projects",
+      url: "/dashboard/projects",
       icon: PenTool,
     },
   ],
