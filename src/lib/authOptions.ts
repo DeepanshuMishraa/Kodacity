@@ -85,6 +85,8 @@ export const authOptions: NextAuthOptions = {
           email: user.email,
           name: user.name,
           provider: account.provider,
+          image: user.image,
+          emailVerified: true,
         },
       });
       return true;

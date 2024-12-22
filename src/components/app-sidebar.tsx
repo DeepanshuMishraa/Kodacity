@@ -211,7 +211,7 @@ export function SidebarComponent() {
                 >
                   <Avatar className="h-8 w-8 rounded-lg">
                     <AvatarImage
-                      src={data.user.avatar}
+                      src={session?.data?.user.image as string}
                       alt={session?.data?.user?.name as string}
                     />
                     <AvatarFallback className="rounded-lg">U</AvatarFallback>
