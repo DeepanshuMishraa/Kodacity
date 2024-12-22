@@ -3,7 +3,6 @@ import { z } from "zod";
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
-// Define a schema for validation
 const ProjectSchema = z.object({
   id: z.number(),
   domain: z.string(),
