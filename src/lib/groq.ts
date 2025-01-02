@@ -39,8 +39,8 @@ async function generateNewProjects(): Promise<Project[]> {
     });
 
     const content = response.choices[0]?.message.content || "[]";
-    const jsonMatch = content.match(/\[.*\]/s);
-
+    const jsonRegex = /\[.*\]/s;
+    const jsonMatch = content.match(jsonRegex);
     if (!jsonMatch) {
       console.error("No JSON array found in response");
       return [];
